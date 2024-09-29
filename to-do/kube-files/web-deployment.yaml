@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-deployment
+  labels:
+    app: todoapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: web
+  template:
+    metadata:
+      labels:
+        name: web
+        app: todoapp
+    spec:
+      containers: 
+        - image: esenkaya123/to-do:1.0
+          imagePullPolicy: Always
+          name: myweb
+          ports: 
+            - containerPort: 3000
+          env:
+            - name: "DBHOST"
+              value: db-service
+          resources:
+            requests:
+              cpu: "100m"
+            limits:
+              cpu: "200m"
+
